@@ -43,12 +43,24 @@ public class Interpolacion {
 	public void DiferenciasDivididas(int n) {
 		double numerador=fx[1]-fx[0];
 		double denominador=x[1]-x[0];
+		double diferencias[] = new double[n];
 		int i=0;
 		while(i<n) {		
-			valoreD[i]=Math.pow(numerador, i+1)/(factorial(i+1)*Math.pow(denominador, i+1));
-			System.out.println(valoreD[i]);										
+			valoreD[i]=Math.pow(numerador, i+1)/(factorial(i+1)*(Math.pow(denominador, i+1)));
+			//System.out.println(valoreD[i]);
 			i++;
 		} 
+		
+		/*for(i=0;i<n-1;i++) {			
+			for(int j=i+1;j<n;j++) {
+				//System.out.print("  "+fx[j+i]+"-"+fx[i-1+j]+"/"+x[j+i]+"-"+x[i-1+j]);
+				diferencias[i]=(fx[j+i]-fx[i-1+j])/(x[j+i]-x[i-1+j]);
+				System.out.println(diferencias[i]);
+				
+			}
+			System.out.println();
+		}*/
+		
 		
 	}
 	
@@ -70,14 +82,14 @@ public class Interpolacion {
 			for(int j=0;j<=i-1;j++) {
 				//if(j!=i) {
 					resta*=X-x[j];
-					//System.out.print("("+X+"-"+x[j]+") = "+resta);
+				//	System.out.print("("+X+"-"+x[j]+") = "+resta);
 //				}											
 
 					//System.out.print(resta);
 			}
 			arr[i]=resta;
 			
-			//System.out.println(resta);
+			//System.out.println();
 			resta=1;
 //			System.out.println(valoreD[i]+"*"+resta);
 		}
@@ -92,7 +104,7 @@ public class Interpolacion {
 		double suma[] =  new double[x.length];
 		for(int i=0;i<n;i++) {
 			suma[i]=(valoreD[i]*valores2[i]);
-		//	System.out.println(valoreD[i]+"*"+valores2[i]);
+			//System.out.println(valoreD[i]+"*"+valores2[i]);
 		}
 		return suma;
 	}
@@ -108,7 +120,7 @@ public class Interpolacion {
 
 	public double ResultadoDiferencias(int n,double X){
 		FormulaDiferencias(n, X);
-		double resultado=0,arr[];
+		double resultado=0,arr[] =  new double[n];
 		arr=InterNewton(n);
 		for(int i=0;i<valores2.length;i++) {
 			resultado+=arr[i];
