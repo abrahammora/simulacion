@@ -40,6 +40,33 @@ public class Interpolacion {
 		else
 			return n*factorial(n-1);
 	}
+	
+	public double TablaDiferenciasD(int n,double X) {
+		double tabla[][] = new double[x.length][x.length];	
+			for(int j=0;j<tabla.length;j++) {						
+				tabla[j][0]=fx[j];
+
+			}		
+		 int p;
+	        for (int k=0; k<n-1;k++){
+	        	p=0;
+	       		for(int i=k+1;i<n;i++){
+	            		tabla[i][k+1]=(tabla[i][k]-tabla[i-1][k])/(x[i]-x[p]);
+	        		p++;
+	       		}
+	        }
+	       
+        double p1=0;
+    	double aux;
+            for(int s=0;s<n;s++){
+            	 aux=1;
+                    for(int c=0;c<s;c++){
+                    	aux=aux*(X-x[c]);
+                    }
+                    p1=p1+(tabla[s][s]*aux);
+            }
+       return p1; 
+	}
 	public void DiferenciasDivididas(int n) {
 		double numerador=fx[1]-fx[0];
 		double denominador=x[1]-x[0];
@@ -54,12 +81,13 @@ public class Interpolacion {
 		/*for(i=0;i<n-1;i++) {			
 			for(int j=i+1;j<n;j++) {
 				//System.out.print("  "+fx[j+i]+"-"+fx[i-1+j]+"/"+x[j+i]+"-"+x[i-1+j]);
-				diferencias[i]=(fx[j+i]-fx[i-1+j])/(x[j+i]-x[i-1+j]);
-				System.out.println(diferencias[i]);
+				diferencias[j]=(fx[j+i]-fx[i-1+j])/(x[j+i]-x[i-1+j]);
+				System.out.println(diferencias[j]);
 				
 			}
-			System.out.println();
+			//System.out.println();
 		}*/
+		//valoreD=diferencias;
 		
 		
 	}
