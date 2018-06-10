@@ -46,19 +46,20 @@ public class Interpolacion {
 			for(int j=0;j<tabla.length;j++) {						
 				tabla[j][0]=fx[j];
 
-			}		
+			}
+			
 		 int p;
-	        for (int k=0; k<n-1;k++){
+	        for (int k=0; k<=n-1;k++){
 	        	p=0;
-	       		for(int i=k+1;i<n;i++){
+	       		for(int i=k+1;i<=n;i++){
 	            		tabla[i][k+1]=(tabla[i][k]-tabla[i-1][k])/(x[i]-x[p]);
 	        		p++;
 	       		}
 	        }
-	       
+	   
         double p1=0;
     	double aux;
-            for(int s=0;s<n;s++){
+            for(int s=0;s<=n;s++){
             	 aux=1;
                     for(int c=0;c<s;c++){
                     	aux=aux*(X-x[c]);
