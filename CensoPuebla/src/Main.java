@@ -17,7 +17,8 @@ public class Main {
 				
 			}
 								
-		}	
+		}
+		System.out.print("Elige una opcón:");
 		return leer.nextLine();
 	}
 	public static boolean isNumeric(String cadena){
@@ -47,7 +48,14 @@ public class Main {
 		}			
 		Archivo archivo=null;		
 		LinkedList<File> ListaArchivos = new LinkedList<>();
-	
+		/*double[] x1 = {1,2,3};
+		double[] fx1 = {0,9,22};
+		metodos = new Interpolacion(x1,fx1);
+		double[] aux = metodos.DerivTresPuntos(2);
+		for(int i=0;i<aux.length;i++){
+			System.out.println(aux[i]);
+		}*/
+
 	
 		String arr[]=null;
 		int n=0;
@@ -61,18 +69,19 @@ public class Main {
 					for (int i = 0; i < ListaArchivos.size(); i++) {
 						archivo = new Archivo(ListaArchivos.get(i));
 					}
-						
+
 					arr = archivo.getWords();												
 					n = Integer.parseInt(arr[0]);
 					double x[] = new double[n+1];
 					double fx[] = new double[n+1];
 					String cadena="";		
 					int p=0,c;
+					System.out.println("\tx\tf(x)");
 					for (int i = 0;i<arr.length; i++) {			
 						//cadena+=arr[i];			
 						for (int j = i+1; j<arr.length; j++) {
 							if(i%2==0 && j<arr.length-1&&p<=n){
-								//System.out.println(arr[i+1] +" : "+arr[j+1]);					
+								System.out.println("\t"+arr[i+1] +"\t"+arr[j+1]);					
 								x[p]=Double.parseDouble(arr[i+1]);
 								fx[p]=Double.parseDouble(arr[j+1]);
 								p++;
@@ -80,20 +89,36 @@ public class Main {
 							break;																		
 						}
 					}
-					metodos = new Interpolacion(x, fx); 
+					metodos = new Interpolacion(x, fx);
+					if(Integer.parseInt(index)==3){
+						System.out.println(" Resultado de Derivación de 3 puntos");
+						System.out.println("\tx\tf(x)\tf'(x)");
+							double[] aux = metodos.DerivTresPuntos(n);
+							for (int i=0;i<arr.length;i++ ) {
+								for (int j=i+1;j<arr.length;j++) {
+								 	if(i%2==0 && j<arr.length-1){								 		
+								 		System.out.println("\t"+arr[i+1]+"\t"+arr[j+1]+"\t"+aux[i/2]);
+								 	}
+								 	break;
+								}								
+							}
+							
 
-					menu();
-					opcion = leer.nextLine();
-					if(isNumeric(opcion)){
-						if(Integer.parseInt(opcion)==1) {					
-							System.out.println("El resultado de f("+arr[arr.length-1]+") es: "+String.format("%.6f",metodos.ResultadoLagrange(n,Double.parseDouble(arr[arr.length-1]))));
-						}else if(Integer.parseInt(opcion)==2) {		
-						
-							System.out.println("El resultado de f("+arr[arr.length-1]+") es: "+String.format("%.6f",metodos.TablaDiferenciasD(n,Double.parseDouble(arr[arr.length-1]))));
+					}else{						
+						menu();
+						opcion = leer.nextLine();
+						if(isNumeric(opcion)){
+							if(Integer.parseInt(opcion)==1) {					
+								System.out.println("El resultado de f("+arr[arr.length-1]+") es: "+String.format("%.6f",metodos.ResultadoLagrange(n,Double.parseDouble(arr[arr.length-1]))));
+							}else if(Integer.parseInt(opcion)==2) {		
+							
+								System.out.println("El resultado de f("+arr[arr.length-1]+") es: "+String.format("%.6f",metodos.TablaDiferenciasD(n,Double.parseDouble(arr[arr.length-1]))));
+							}else
+								System.out.println("Opción Incorrecta");
 						}else
-							System.out.println("Opción Incorrecta");
-					}else
-						System.out.println("Opción Incorrecta");
+							System.out.println("Opción Incorrecta");						
+						}
+
 				}
 				
 			}else

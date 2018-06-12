@@ -13,7 +13,21 @@ public class Interpolacion {
 		this.valores2=new double[x.length];
 		this.valoreD = new double[x.length];
 	}
-	
+
+	public double[] DerivTresPuntos(int n){
+		double aux[] = new double[n];
+		double v1=0,v2=0,v3=0,suma=0;
+			for(int j=0;j<=n;j++){
+					v1=((2*x[j]-x[1]-x[2])/(x[0]-x[1])*(x[0]-x[2]))*fx[0];
+					v2=((2*x[j]-x[0]-x[2])/(x[1]-x[0])*(x[1]-x[2]))*fx[1];
+					v3=((2*x[j]-x[0]-x[1])/(x[2]-x[0])*(x[2]-x[1]))*fx[2];
+					suma+=(v1+v2+v3);					
+					valores[j]=suma;
+					suma=0;
+	}
+		return valores;
+	}
+					
 	public void FormulaLagrange(int n,double X){
 		double mul=1,mul2=1,num,den;
 		for(int i=0;i<=n;i++) {
