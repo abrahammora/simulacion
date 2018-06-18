@@ -12,6 +12,13 @@ public class Interpolacion {
 		this.valores=new double[x.length];
 		this.valores2=new double[x.length];
 		this.valoreD = new double[x.length];
+	
+	}
+	public double[] getx(){
+					return this.x;
+	}
+	public double[] getfx(){
+					return this.fx;
 	}
 
 	public double[] DerivTresPuntos(int n){
@@ -27,7 +34,13 @@ public class Interpolacion {
 	}
 		return valores;
 	}
-					
+	public double DerivCincoPuntos(){
+					double h=x[1]-x[0];
+					return (1/(12*h))*(fx[0]-8*(fx[1])+8*(fx[3])-fx[4]);
+	}
+	public double FormulaTrapecio(){
+				return (x[1]-x[0])*((fx[0]+fx[1])/2);
+	}					
 	public void FormulaLagrange(int n,double X){
 		double mul=1,mul2=1,num,den;
 		for(int i=0;i<=n;i++) {

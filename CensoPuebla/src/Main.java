@@ -55,7 +55,10 @@ public class Main {
 		for(int i=0;i<aux.length;i++){
 			System.out.println(aux[i]);
 		}*/
-
+		/*double[] x2={1.8,1.9,2.0,2.1,2.2};
+		double[] fx2={10.889365,12.703199,14.778112,17.148957,19.855030};
+		metodos=new Interpolacion(x2,fx2);
+		System.out.println(metodos.DerivCincoPuntos());*/
 	
 		String arr[]=null;
 		int n=0;
@@ -104,6 +107,13 @@ public class Main {
 							}
 							
 
+					}else if(Integer.parseInt(index)==4){
+							System.out.println(" Resultado de Derivacion de 5 puntos");
+							System.out.println("El resultado de f("+arr[arr.length/2]+") es: "+String.format("%.6f",metodos.DerivCincoPuntos()));
+
+					}else if(Integer.parseInt(index)==5){
+									System.out.println(" Resultado Formula del Trapecio");
+									System.out.println("El resultado es: "+String.format("%.6f",metodos.FormulaTrapecio()));
 					}else{						
 						menu();
 						opcion = leer.nextLine();
