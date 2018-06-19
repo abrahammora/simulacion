@@ -41,6 +41,14 @@ public class Interpolacion {
 	public double FormulaTrapecio(){
 				return (x[1]-x[0])*((fx[0]+fx[1])/2);
 	}					
+	public double SimpsonTercio(){
+				double h = x[1]-x[0];
+				return (h/3)*(fx[0]+4*fx[1]+fx[2]);
+	}
+	public double SimpsonOctavo(){
+				double h = (x[3]-x[0])/3;
+				return ((3*h)/8)*(fx[0]+3*fx[1]+3*fx[2]+fx[3]);
+	}
 	public void FormulaLagrange(int n,double X){
 		double mul=1,mul2=1,num,den;
 		for(int i=0;i<=n;i++) {

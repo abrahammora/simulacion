@@ -1,7 +1,7 @@
-
 import java.io.*;
 import java.util.LinkedList;
 import java.util.Scanner;
+import java.util.Arrays;
 public class Main {
 	public static void menu() {
 		System.out.println("¿Que Metodo Deseas Realizar?");
@@ -38,14 +38,23 @@ public class Main {
 		String ruta="";				
 		File dire = new File("/home/abraham/simulacion/Censo/");		
 		String[] ficheros = dire.list();
-		String[] ficherostxt=new String[ficheros.length];
+
 		int con=0;
+
 		for (int i = 0; i < ficheros.length; i++) {
-			if(ficheros[i].contains(".txt") && ficheros[i]!=null) {	
-				ficherostxt[con]=ficheros[i];
+			if(ficheros[i].contains(".txt") /*&& !ficheros[i].equals("")*/) {	
+				//ificherostxt[con]=ficheros[i];
 				con++;
 			}				
 		}			
+		String[] ficherostxt=new String[con];
+		int con2 =0;
+		for (int i = 0; i < ficheros.length; i++) {
+			if(ficheros[i].contains(".txt") /*&& !ficheros[i].equals("")*/) {	
+				ficherostxt[con2]=ficheros[i];
+				con2++;
+			}				
+		}		
 		Archivo archivo=null;		
 		LinkedList<File> ListaArchivos = new LinkedList<>();
 		/*double[] x1 = {1,2,3};
@@ -59,13 +68,15 @@ public class Main {
 		double[] fx2={10.889365,12.703199,14.778112,17.148957,19.855030};
 		metodos=new Interpolacion(x2,fx2);
 		System.out.println(metodos.DerivCincoPuntos());*/
-	
+
+		Arrays.sort(ficherostxt);
+					
 		String arr[]=null;
 		int n=0;
 		while(true) {
 			String index = menuArchivos(ficherostxt);
 			if(isNumeric(index)){
-				if(Integer.parseInt(index)<ficherostxt.length){
+				if(Integer.parseInt(index)<=ficherostxt.length && Integer.parseInt(index)>0){
 					ruta = "/home/abraham/simulacion/Censo/"+ficherostxt[Integer.parseInt(index)-1];
 					ListaArchivos.add(new File(ruta));
 						
@@ -114,6 +125,12 @@ public class Main {
 					}else if(Integer.parseInt(index)==5){
 									System.out.println(" Resultado Formula del Trapecio");
 									System.out.println("El resultado es: "+String.format("%.6f",metodos.FormulaTrapecio()));
+					}else if(Integer.parseInt(index)==6){
+									System.out.println(" Resultado de Regla de Simpson 1/3");
+									System.out.println("El resultado es: "+String.format("%.6f",metodos.SimpsonTercio()));
+					}else if(Integer.parseInt(index)==7){
+									System.out.println(" Resultado de Regla de Simpson 3/8");
+									System.out.println("El resultado es: "+String.format("%.6f",metodos.SimpsonOctavo()));
 					}else{						
 						menu();
 						opcion = leer.nextLine();
