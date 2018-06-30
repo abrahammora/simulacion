@@ -14,7 +14,25 @@ class Main{
 	public static void main(String[] args){
 		Scanner leer = new Scanner(System.in);
 		RKCuarto obj = new RKCuarto();
-		String n,a,b,y;	
+		obj.setn(10);
+		obj.setm(2);
+		double[] alfa ={0,0};
+		double[] aux =obj.valorx(0,1);
+
+		obj.setx(aux);
+		/*for(int i=0;i<aux.length;i++){
+			System.out.println(String.format("%.3f",aux[i]));
+		}*/
+		double[][] aux2 = obj.RungeKutta(0,1,alfa);
+		System.out.println("t\tw1\t\tw2");
+		for(int i=0;i<aux.length;i++){
+			System.out.print(String.format("%.3f",aux[i])+"\t");
+			for(int j=0;j<obj.getm();j++){
+				System.out.print(aux2[i][j]+"\t");
+			}
+			System.out.println();
+		}
+		/*String n,a,b,y;	
 		String opF = menuFunciones();
 		System.out.print("Ingresa el intervalo a:");
 		a=leer.nextLine();	
@@ -31,8 +49,9 @@ class Main{
 		double[] aux2 = obj.RungeKutta(Double.parseDouble(a),Double.parseDouble(b),Double.parseDouble(y),Integer.parseInt(opF));
 		obj.setfx(aux2);
 		double[] fx = obj.getfx();
+		
 		for(int i=0;i<aux.length;i++){
 			System.out.println(String.format("%.3f",aux[i])+" "+fx[i]);
-		}
+		}*/
 	}
 }

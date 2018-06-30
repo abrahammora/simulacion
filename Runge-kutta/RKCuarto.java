@@ -2,6 +2,7 @@ class RKCuarto{
 	private double x[];
 	private double fx[];
 	private int n;
+	private int m;
 
 	public double[] getx(){
 		return this.x;
@@ -11,6 +12,12 @@ class RKCuarto{
 	}
 	public int getn(){
 		return this.n;
+	}
+	public int getm(){
+		return this.m;
+	}
+	public void setm(int m){
+		this.m=m;
 	}
 	public void setn(int n){
 		this.n=n;
@@ -40,6 +47,26 @@ class RKCuarto{
 		
 		return 0;
 	}
+	public double[] EDO2(double x,double[] y){
+		double aux[] = new double[y.length+1];
+		//if(op==1){
+			for(int i=0;i<y.length-1;i++){
+				aux[i]=-4*y[i]+3*y[i+1]+6;
+				aux[i+1]=-2.4*y[i]+1.6*y[i+1]+3.6;
+			}
+			return aux;
+			//return -4*y+3*y+6;
+		//}
+		//else if(op==2){
+		//	for(int i=0;i<y.length;i++){
+
+		//	}
+			//return -2.4*y+1.6*y+3.6;
+		//	return aux;
+		//}
+
+		//return null;
+	}
 
 	public double valorh(double a,double b){
 		return (b-a)/n;
@@ -49,7 +76,7 @@ class RKCuarto{
 		double h = valorh(a,b);
 		double auxa =a;
 		double suma=0;
-		System.out.println(h);
+//		System.out.println(h);
 		for(int i=0;i<=n;i++){			
 			aux[i]=auxa;
 			auxa+=h;
@@ -67,9 +94,44 @@ class RKCuarto{
 			k2 = h*EDO((x[i]+(h/2)),(aux[i]+(k1/2)),op);
 			k3 = h*EDO(x[i]+(h/2),(aux[i]+(k2/2)),op);
 			k4 = h*EDO(x[i+1],aux[i]+k3,op);
-			aux[i+1]=aux[i]+(k1+(2*k2)+(2*k3)+k4)/6;
+			aux[i+1]=aux[i]+k1/6+k2/3+k3/3+k4/6;
 				
 		}
 		return aux;
+	}
+	public double[][] RungeKutta(double a,double b,double[] alfa){
+		double h = valorh(a,b);
+		double[] k1 = new double[m];
+		double[] k2 = new double[m];
+		double[] k3 = new double[m];
+		double[] k4 = new double[m];
+		double[][] aux = new double[n+1][m+1];
+		double[] yd = new double[m];
+		double[] dydx = new double[m];
+		int numF=0;
+		for(int i=0;i<m;i++) aux[0][i]=alfa[i];
+
+		for(int i=0;i<n;i++){				
+			for(int j=0;j<m;j++)yd[j]=aux[i][j];
+			dydx=EDO2(x[i],yd);
+			for(int j=0;j<m;j++)k1[j]=h*dydx[j];
+						
+			for(int j=0;j<m;j++)yd[j]=aux[i][j]+(k1[j]/2);				
+			dydx=EDO2(x[i]+(h/2),yd);							
+			for(int j=0;j<m;j++)k2[j]=h*dydx[j];
+								
+			for(int j=0;j<m;j++)yd[j]=aux[i][j]+(k2[j]/2);
+			dydx=EDO2(x[i]+(h/2),yd);						
+			for(int j=0;j<m;j++)k3[j]=h*dydx[j];
+					
+			for(int j=0;j<m;j++)yd[j]=aux[i][j]+k3[j];
+			dydx=EDO2(x[i+1],yd);			
+			for(int j=0;j<m;j++)k4[j]=h*dydx[j];
+
+			for(int j=0;j<m;j++){
+				aux[i+1][j]=aux[i][j] + k1[j]/6 + k2[j]/3 + k3[j]/3 + k4[j]/6;
+			}
+		}
+			return aux;
 	}
 }
