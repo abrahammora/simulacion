@@ -54,6 +54,11 @@ class RKCuarto{
 				aux[i]=-4*y[i]+3*y[i+1]+6;
 				aux[i+1]=-2.4*y[i]+1.6*y[i+1]+3.6;
 			}
+		//Depredador Presa
+		/*for (int i = 0; i < y.length-1; i++) {
+			aux[i] = 0.1* x -0.02*x*y[i];
+			aux[i+1] = -0.3* y[i] + 0.01*x *y[i+1];
+		}*/
 			return aux;
 			//return -4*y+3*y+6;
 		//}
