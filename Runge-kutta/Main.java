@@ -14,6 +14,20 @@ class Main{
 	public static void main(String[] args){
 		Scanner leer = new Scanner(System.in);
 		RKCuarto obj = new RKCuarto();
+		/*
+		//Parametros
+		int n = 800;
+		int m = 2;
+		double a = 0;
+		double b =1;				
+		//Condiciones iniciales
+		double[] alfa = {40,9};
+		obj.setn(n);
+		obj.setm(m);
+		double[] aux = obj.valorx(a, b);
+		obj.setx(aux);
+		double[][] aux2 = obj.RungeKutta(a, b, alfa);
+		*/
 		obj.setn(10);
 		obj.setm(2);
 		double[] alfa ={0,0};
