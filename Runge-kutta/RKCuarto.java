@@ -59,6 +59,11 @@ class RKCuarto{
 			aux[i] = 0.1* x -0.02*x*y[i];
 			aux[i+1] = -0.3* y[i] + 0.01*x *y[i+1];
 		}*/
+		//Ejercicio 
+		/*for (int i = 0; i < y.length-1; i++) {
+			aux[i] = y[i+1];
+			aux[i+1] = Math.exp(2*x)*Math.sin(x)-2*y[i]+2*y[+1];
+		}*/
 			return aux;
 			//return -4*y+3*y+6;
 		//}
