@@ -21,6 +21,7 @@ public class Grafica {
 	private JFrame frame;
 	private JFreeChart grafica;
 	DefaultCategoryDataset datos = new DefaultCategoryDataset();
+	private RKCuarto RK;
 	
 
 	/**
@@ -54,7 +55,21 @@ public class Grafica {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		XYSeries series  = new XYSeries("A");
+		RK =  new RKCuarto();
+		int n = 800;
+		int m = 2;
+		double a = 0;
+		double b =200;				
+		//Condiciones iniciales
+		double[] alfa = {40,9};
+		RK.setn(n);
+		RK.setm(m);
+		double[] aux = RK.valorx(a, b);
+		RK.setx(aux);
+		double[][] aux2 = RK.RungeKutta(a, b, alfa);
+		
+		XYSeries series  = new XYSeries("Presas");
+		XYSeries depredador = new XYSeries("Depredadores");
 		JButton btnGrafica = new JButton("Grafica");
 		btnGrafica.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -68,7 +83,28 @@ public class Grafica {
 		});
 		btnGrafica.setBounds(159, 112, 89, 23);
 		frame.getContentPane().add(btnGrafica);
-		series.add(1, 1);
+		for (int i = 0; i < aux.length; i++) {
+			series.add(aux[i],aux2[i][0]);			
+			depredador.add(aux[i],aux2[i][1]);
+			//System.out.println(aux[i]);
+		}
+		
+		  XYSeriesCollection dataset = new XYSeriesCollection();
+	        dataset.addSeries(depredador);
+	        //dataset.addSeries(depredador);	        	        
+	        grafica = ChartFactory.createXYLineChart(
+	                "Presas", // Título
+	                "Tiempo (x)", // Etiqueta Coordenada X
+	                "Poblacion", // Etiqueta Coordenada Y
+	                dataset, // Datos
+	                PlotOrientation.VERTICAL,
+	                true, // Muestra la leyenda de los productos (Producto A)
+	                false,
+	                false
+	      );
+	       
+	     
+		/*series.add(1, 1);
         series.add(2, 6);
         series.add(3, 3);
         series.add(4, 10);
@@ -87,7 +123,7 @@ public class Grafica {
                 false
         );
 		
-		/*datos.addValue(1, "Negocio", "Lunes");
+		datos.addValue(1, "Negocio", "Lunes");
 		datos.addValue(2, "Negocio", "Martes");
 		datos.addValue(3, "Negocio", "Miercoles");
 		datos.addValue(4, "Negocio", "Jueves");
